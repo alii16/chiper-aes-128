@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $key = $_POST['key'];
 
-        // Cek panjang kunci (harus 16 byte untuk AES-128)
         if (strlen($key) != 16) {
             echo "<div class='alert alert-danger flex items-center space-x-2 p-4 mb-4 text-sm text-red-800 bg-red-100 rounded-lg' role='alert'>
 
