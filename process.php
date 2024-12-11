@@ -31,22 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fileData = file_get_contents($fileTmpPath);
 
         if ($action == 'encrypt') {
-            // Proses enkripsi
-            $iv = openssl_random_pseudo_bytes(16); // IV acak 16 byte
+            $iv = openssl_random_pseudo_bytes(16);
 
             // Encrypt data
             $encryptedData = openssl_encrypt($fileData, 'aes-128-cbc', $key, OPENSSL_RAW_DATA, $iv);
-
-            // Simpan hash kunci yang digunakan untuk enkripsi (kunci harus sama untuk dekripsi)
             $keyHash = hash('sha256', $key, true);
-
-            // Gabungkan IV, data terenkripsi, dan hash kunci
             $finalData = $iv . $encryptedData . $keyHash;
-
-            // Tentukan nama file terenkripsi
             $encryptedFileName = 'uploads/' . pathinfo($fileName, PATHINFO_FILENAME) . '_encrypted.' . pathinfo($fileName, PATHINFO_EXTENSION);
-
-            // Simpan file terenkripsi
             file_put_contents($encryptedFileName, $finalData);
 
             echo "<div class='alert alert-success flex items-center space-x-2 p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg' role='alert'>
@@ -56,18 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span><strong>Sukses!</strong> File berhasil dienkripsi dan disimpan sebagai <a href='" . $encryptedFileName . "' class='text-blue-600 underline'>Download File Enkripsi</a>.</span>
                   </div>";
         } elseif ($action == 'decrypt') {
+            
             // Proses dekripsi
-
-            // Ambil IV dari awal file
             $iv = substr($fileData, 0, 16);
-
-            // Ambil data terenkripsi (setelah IV)
-            $encryptedData = substr($fileData, 16, -32);  // Mengurangi 32 byte terakhir untuk hash kunci
-
-            // Ambil hash kunci yang disimpan pada file terenkripsi
+            $encryptedData = substr($fileData, 16, -32);
             $storedKeyHash = substr($fileData, -32);
-
-            // Cek apakah kunci yang dimasukkan sesuai dengan kunci yang digunakan saat enkripsi
             if (hash('sha256', $key, true) !== $storedKeyHash) {
                 echo "<div class='alert alert-danger flex items-center space-x-2 p-4 mb-4 text-sm text-red-800 bg-red-100 rounded-lg shadow-md' role='alert'>
             <span><strong>Error!</strong> Kunci yang dimasukkan tidak sesuai dengan kunci yang digunakan untuk mengenkripsi file.</span>
@@ -77,16 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Dekripsi data file dengan AES-128-CBC
             $decryptedData = openssl_decrypt($encryptedData, 'aes-128-cbc', $key, OPENSSL_RAW_DATA, $iv);
-
-            // Tentukan nama file hasil dekripsi dan simpan di folder 'downloads'
             $decryptedFileName = 'downloads/' . pathinfo($fileName, PATHINFO_FILENAME) . '_decrypted.' . pathinfo($fileName, PATHINFO_EXTENSION);
-
-            // Cek apakah folder 'downloads' ada, jika tidak buat
             if (!is_dir('downloads')) {
-                mkdir('downloads', 0777, true); // Membuat folder dengan izin penuh
+                mkdir('downloads', 0777, true);
             }
-
-            // Simpan hasil dekripsi sebagai file di folder 'downloads'
             file_put_contents($decryptedFileName, $decryptedData);
 
             echo "<div class='alert alert-success flex items-center space-x-2 p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg' role='alert'>
