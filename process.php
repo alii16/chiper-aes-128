@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         $action = $_POST['action'];
 
-        // Ambil kunci AES dari form
         $key = $_POST['key'];
 
         // Cek panjang kunci (harus 16 byte untuk AES-128)
