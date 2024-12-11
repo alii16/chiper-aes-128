@@ -1,7 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
-        // Ambil file yang di-upload
         $fileTmpPath = $_FILES['file']['tmp_name'];
         $fileName = $_FILES['file']['name'];
         $fileSize = $_FILES['file']['size'];
