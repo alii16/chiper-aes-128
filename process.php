@@ -6,7 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fileSize = $_FILES['file']['size'];
         $fileType = $_FILES['file']['type'];
 
-        // Validasi jenis file (PDF atau DOCX)
         $allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         if (!in_array($fileType, $allowedTypes)) {
             echo "<div class='alert alert-danger flex items-center space-x-2 p-4 mb-4 text-sm text-red-800 bg-red-100 rounded-lg' role='alert'>
