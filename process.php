@@ -1,6 +1,5 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Validasi apakah file di-upload
     if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
         // Ambil file yang di-upload
         $fileTmpPath = $_FILES['file']['tmp_name'];
