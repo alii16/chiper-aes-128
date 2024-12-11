@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
 
-        // Baca isi file
         $fileData = file_get_contents($fileTmpPath);
 
         if ($action == 'encrypt') {
