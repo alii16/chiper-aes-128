@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   </div>";
             exit;
         }
-        // Ambil aksi (enkripsi atau dekripsi)
         $action = $_POST['action'];
 
         // Ambil kunci AES dari form
