@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/154661557?v=4" />
+    <meta name="description" content="Encrypt your word and pdf file" />
+    <meta name="author" content="Ali Polanunu" />
     <title>Enkripsi dan Dekripsi File Word dan PDF menggunakan AES-128</title>
     <!-- Flowbite CSS -->
     <link href="https://cdn.jsdelivr.net/npm/flowbite@1.5.0/dist/flowbite.min.css" rel="stylesheet">
